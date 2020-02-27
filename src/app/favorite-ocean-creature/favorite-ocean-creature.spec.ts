@@ -48,4 +48,12 @@ describe('Favorite ocean creature', () => {
 
     expect(options).toContain(blueWhale);
   });
+
+  it('put your favorite ocean creature in a sentence', async () => {
+    const octopus = 'Octopus';
+    await harness.pickOption({ text: octopus });
+    const text = await harness.getText();
+
+    expect(text).toBe(`My favorite ocean creature is ${octopus}`);
+  });
 });

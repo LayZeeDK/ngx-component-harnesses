@@ -26,6 +26,14 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
     return Promise.all(optionTexts);
   }
 
+  async getText(): Promise<string> {
+    const label = 'Pick your favorite';
+    const host = await this.host();
+    const text = await host.text();
+
+    return text.replace(label, '').trim();
+  }
+
   async pickOption(filter: FavoriteOceanCreatureFilters): Promise<void> {
     const select = await this.getMatSelect();
 
