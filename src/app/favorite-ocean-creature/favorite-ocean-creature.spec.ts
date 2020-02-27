@@ -17,10 +17,10 @@ describe('Favorite ocean creature', () => {
   let harness: FavoriteOceanCreatureHarness;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [TestHostComponent],
       imports: [NoopAnimationsModule, FavoriteOceanCreatureModule],
-    }).compileComponents();
+    });
 
     const fixture = TestBed.createComponent(TestHostComponent);
     const loader = TestbedHarnessEnvironment.loader(fixture);
@@ -33,5 +33,19 @@ describe('Favorite ocean creature', () => {
 
     const pickedOceanCreature = await harness.getFavoriteOceanCreature();
     expect(pickedOceanCreature).toBe(greatWhiteShark);
+  });
+
+  it('manta ray is the default favorite ocean creature', async () => {
+    const mantaRay = 'Manta ray';
+
+    const pickedOceanCreature = await harness.getFavoriteOceanCreature();
+    expect(pickedOceanCreature).toBe(mantaRay);
+  });
+
+  it('show awesome ocean creatures', async () => {
+    const blueWhale = 'Blue whale';
+    const options = await harness.getOptions();
+
+    expect(options).toContain(blueWhale);
   });
 });
