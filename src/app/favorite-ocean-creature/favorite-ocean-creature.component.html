@@ -1,0 +1,7 @@
+<p>
+  My favorite ocean creature is
+  <app-favorite-ocean-creature-picker
+    [options]="oceanCreatures"
+    [value]="favoriteOceanCreature$ | async"
+    (valueChange)="onFavoriteOceanCreaturePicked($event)"></app-favorite-ocean-creature-picker>
+</p>
