@@ -8,17 +8,17 @@ import {
 export class FavoriteOceanCreatureHarness extends ComponentHarness {
   static hostSelector = 'app-favorite-ocean-creature';
 
-  protected getMatSelect: AsyncFactoryFn<MatSelectHarness> =
+  protected getDropDown: AsyncFactoryFn<MatSelectHarness> =
     this.locatorFor(MatSelectHarness);
 
   async getFavoriteOceanCreature(): Promise<string> {
-    const select = await this.getMatSelect();
+    const select = await this.getDropDown();
 
     return select.getValueText();
   }
 
   async getOptions(): Promise<ReadonlyArray<string>> {
-    const select = await this.getMatSelect();
+    const select = await this.getDropDown();
     await select.open();
     const options = await select.getOptions();
     const optionTexts = options.map(option => option.getText());
@@ -35,7 +35,7 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
   }
 
   async pickOption(filter: FavoriteOceanCreatureFilters): Promise<void> {
-    const select = await this.getMatSelect();
+    const select = await this.getDropDown();
 
     return select.clickOptions({ text: filter.text });
   }
