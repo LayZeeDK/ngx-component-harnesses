@@ -27,7 +27,7 @@ describe('Favorite ocean creature', () => {
     harness = await loader.getHarness(FavoriteOceanCreatureHarness);
   });
 
-  it('manta ray is the default favorite ocean creature', async () => {
+  it('manta ray is initially picked', async () => {
     const mantaRay = 'Manta ray';
     const pickedOceanCreature = await harness.getFavoriteOceanCreature();
 
