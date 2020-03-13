@@ -29,6 +29,7 @@ describe('Favorite ocean creature', () => {
 
   it('pick your favorite ocean creature', async () => {
     const greatWhiteShark = 'Great white shark';
+
     await harness.pickOption({ text: greatWhiteShark });
 
     const pickedOceanCreature = await harness.getFavoriteOceanCreature();
@@ -37,8 +38,8 @@ describe('Favorite ocean creature', () => {
 
   it('manta ray is the default favorite ocean creature', async () => {
     const mantaRay = 'Manta ray';
-
     const pickedOceanCreature = await harness.getFavoriteOceanCreature();
+
     expect(pickedOceanCreature).toBe(mantaRay);
   });
 
@@ -51,9 +52,10 @@ describe('Favorite ocean creature', () => {
 
   it('put your favorite ocean creature in a sentence', async () => {
     const octopus = 'Octopus';
-    await harness.pickOption({ text: octopus });
-    const text = await harness.getText();
 
+    await harness.pickOption({ text: octopus });
+
+    const text = await harness.getText();
     expect(text).toBe(`My favorite ocean creature is ${octopus}`);
   });
 });
