@@ -29,6 +29,7 @@ describe('Favorite ocean creature', () => {
 
   it('manta ray is initially picked', async () => {
     const mantaRay = 'Manta ray';
+
     const pickedOceanCreature = await harness.getFavoriteOceanCreature();
 
     expect(pickedOceanCreature).toBe(mantaRay);
@@ -36,6 +37,7 @@ describe('Favorite ocean creature', () => {
 
   it('show awesome ocean creatures', async () => {
     const blueWhale = 'Blue whale';
+
     const options = await harness.getOptions();
 
     expect(options).toContain(blueWhale);
