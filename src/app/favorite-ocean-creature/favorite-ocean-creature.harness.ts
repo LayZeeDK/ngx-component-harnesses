@@ -27,9 +27,9 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
   }
 
   async getText(): Promise<string> {
-    const label = 'Pick your favorite';
     const host = await this.host();
     const text = await host.text();
+    const label = 'Pick your favorite';
 
     return text.replace(label, '').trim();
   }
