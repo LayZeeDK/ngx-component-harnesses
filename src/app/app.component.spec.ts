@@ -1,11 +1,20 @@
-import { TestBed, async } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppComponent } from './app.component';
+import {
+  FavoriteOceanCreatureModule,
+} from './favorite-ocean-creature/favorite-ocean-creature.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+      ],
+      imports: [
+        NoopAnimationsModule,
+        FavoriteOceanCreatureModule,
       ],
     }).compileComponents();
   }));
@@ -22,10 +31,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('ngx-component-harnesses');
   });
 
-  it('should render title', () => {
+  it('should render favorite ocean creature', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('ngx-component-harnesses app is running!');
+    expect(compiled.textContent).toContain('My favorite ocean creature is');
   });
 });
