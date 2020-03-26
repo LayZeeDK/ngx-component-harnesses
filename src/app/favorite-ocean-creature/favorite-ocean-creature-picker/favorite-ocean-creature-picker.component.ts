@@ -8,7 +8,8 @@ import {
   Output,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { SelectOption, SelectOptions } from '../select-option';
 
@@ -19,7 +20,7 @@ import { SelectOption, SelectOptions } from '../select-option';
   templateUrl: './favorite-ocean-creature-picker.component.html',
 })
 export class FavoriteOceanCreaturePickerComponent implements OnDestroy, OnInit {
-  private controlSubscription: Subscription;
+  private destroy = new Subject();
 
   @Input()
   options: SelectOptions = [];
@@ -37,19 +38,13 @@ export class FavoriteOceanCreaturePickerComponent implements OnDestroy, OnInit {
   control = new FormControl();
 
   ngOnInit(): void {
-    this.bindEvents();
+    this.control.valueChanges.pipe(
+      takeUntil(this.destroy),
+    ).subscribe(value => this.valueChange.next(value));
   }
 
   ngOnDestroy(): void {
-    this.unbindEvents();
-  }
-
-  private bindEvents(): void {
-    this.controlSubscription = this.control.valueChanges.subscribe(value =>
-      this.valueChange.next(value));
-  }
-
-  private unbindEvents(): void {
-    this.controlSubscription.unsubscribe();
+    this.destroy.next();
+    this.destroy.complete();
   }
 }
