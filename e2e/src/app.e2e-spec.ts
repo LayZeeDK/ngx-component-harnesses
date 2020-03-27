@@ -1,16 +1,27 @@
-import { AppPage } from './app.po';
+import { ProtractorHarnessEnvironment } from '@angular/cdk/testing/protractor';
 import { browser, logging } from 'protractor';
 
-describe('workspace-project App', () => {
-  let page: AppPage;
+import {
+  FavoriteOceanCreatureHarness,
+} from '../../src/app/favorite-ocean-creature/favorite-ocean-creature.harness';
 
-  beforeEach(() => {
-    page = new AppPage();
+describe('Favorite ocean creature app', () => {
+  beforeEach(async () => {
+    browser.get('/');
+    const harnessLoader = ProtractorHarnessEnvironment.loader();
+    harness = await harnessLoader.getHarness(FavoriteOceanCreatureHarness);
   });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toEqual('ngx-component-harnesses app is running!');
+  let harness: FavoriteOceanCreatureHarness;
+
+  it('put your favorite ocean creature in a sentence', async () => {
+    const octopus = 'Octopus';
+
+    await harness.pickOption({ text: octopus });
+
+    const text = await harness.getText();
+    expect(text).toBe(`My favorite ocean creature is ${octopus}`);
+
   });
 
   afterEach(async () => {

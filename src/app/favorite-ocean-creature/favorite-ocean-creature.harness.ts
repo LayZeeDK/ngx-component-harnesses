@@ -11,6 +11,12 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
   protected getDropDown: AsyncFactoryFn<MatSelectHarness> =
     this.locatorFor(MatSelectHarness);
 
+  private coerceRegExp(textFilter: string | RegExp): RegExp {
+    return typeof textFilter === 'string'
+      ? new RegExp(`^\s*${textFilter}\s*$`)
+      : textFilter;
+  }
+
   async getFavoriteOceanCreature(): Promise<string> {
     const select = await this.getDropDown();
 
@@ -31,12 +37,13 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
     const text = await host.text();
     const label = 'Pick your favorite';
 
-    return text.replace(label, '').trim();
+    return text.replace(label, '').trim().replace(/\n+/g, ' ');
   }
 
   async pickOption(filter: FavoriteOceanCreatureFilters): Promise<void> {
     const select = await this.getDropDown();
 
-    return select.clickOptions({ text: filter.text });
+    await select.clickOptions({ text: this.coerceRegExp(filter.text || '') });
+    await this.forceStabilize();
   }
 }
