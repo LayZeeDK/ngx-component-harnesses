@@ -37,7 +37,7 @@ export class FavoriteOceanCreatureHarness extends ComponentHarness {
     const text = await host.text();
     const label = 'Pick your favorite';
 
-    return text.replace(label, '').trim().replace(/\n+/g, ' ');
+    return text.replace(label, '').trim().replace(/\r?\n+/g, ' ');
   }
 
   async pickOption(filter: FavoriteOceanCreatureFilters): Promise<void> {
